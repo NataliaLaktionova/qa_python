@@ -1,4 +1,6 @@
+import pytest
 from main import BooksCollector
+
 class TestBooksCollector:
     def test_add_new_book_add_duplicate_books(self):
         collector = BooksCollector()
@@ -46,13 +48,12 @@ class TestBooksCollector:
         collector.set_book_genre('1984', 'Фантастика')
         assert collector.get_books_genre() == {'Властелин колец': 'Фантастика', '1984': 'Фантастика'}
 
-    import pytest
     @pytest.mark.parametrize(
         'book,genre',
         [
             ['Душа', 'Мультфильмы'],
             ['Один дома', 'Комедии'],
-            ['История Игрушек', 'Мультфильмы']
+            ['1984', 'Фантастика']
         ]
     )
     def test_get_books_for_children_add_three_book_and_child_genres(self, book, genre):
@@ -60,23 +61,27 @@ class TestBooksCollector:
         collector.add_new_book(book)
         collector.set_book_genre(book, genre)
         assert collector.get_books_for_children() == [book]
+
     def test_add_book_in_favourites_add_one_favourite_book(self):
         collector = BooksCollector()
         collector.add_new_book('Маленький принц')
         collector.add_book_in_favorites('Маленький принц')
         assert collector.get_list_of_favorites_books() == ['Маленький принц']
+
     def test_add_book_to_favorites_duplicate_favourite_book(self):
         collector = BooksCollector()
         collector.add_new_book('Маленький принц')
         collector.add_book_in_favorites('Маленький принц')
         collector.add_book_in_favorites('Маленький принц')
         assert collector.get_list_of_favorites_books() == ['Маленький принц']
+
     def test_delete_book_from_favourites_books_delete_added_book(self):
         collector = BooksCollector()
         collector.add_new_book('Великий Гэтсби')
         collector.add_book_in_favorites('Великий Гэтсби')
         collector.delete_book_from_favorites('Великий Гэтсби')
         assert 'Великий Гэтсби' not in collector.get_list_of_favorites_books()
+
     @pytest.mark.parametrize(
         'book',
         ['Великий Гэтсби', 'Мастер и Маргарита', 'Властелин колец']
