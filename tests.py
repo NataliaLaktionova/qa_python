@@ -9,6 +9,7 @@ class TestBooksCollector:
         collector.add_new_book(book_name)
         books = collector.get_books_genre()
         assert len(books) == 1
+
     def test_set_book_genre_existing_book(self):
         collector = BooksCollector()
         book_name = '1984'
@@ -17,6 +18,7 @@ class TestBooksCollector:
         collector.set_book_genre(book_name, genre)
         book_genre = collector.get_book_genre(book_name)
         assert book_genre == genre
+
     def test_get_book_genre_existing_book(self):
         collector = BooksCollector()
         book_name = 'Мизери'
@@ -25,6 +27,7 @@ class TestBooksCollector:
         collector.set_book_genre(book_name, genre)
         book_genre = collector.get_book_genre(book_name)
         assert book_genre == genre
+
     def test_get_books_with_specific_genre_three_books_1_genre(self):
         collector = BooksCollector()
         collector.add_new_book('Властелин колец')
@@ -35,11 +38,13 @@ class TestBooksCollector:
         collector.set_book_genre('1984', 'Фантастика')
         assert (collector.get_books_with_specific_genre('Фантастика') ==
                 ['Властелин колец', 'Гарри Поттер и философский камень', '1984'])
+
     def test_get_books_genre_add_two_book_genre_not_set(self):
         collector = BooksCollector()
         collector.add_new_book('Мастер и Маргарита')
         collector.add_new_book('Онегин')
         assert collector.get_books_genre() == {'Мастер и Маргарита': '', 'Онегин': ''}
+
     def test_get_books_genre_add_two_book_genre_set(self):
         collector = BooksCollector()
         collector.add_new_book('Властелин колец')
@@ -92,3 +97,11 @@ class TestBooksCollector:
         collector.add_book_in_favorites(book)
         favorites_books = collector.get_list_of_favorites_books()
         assert book in favorites_books
+
+    def test_get_list_of_favorites_books_empty(self):
+        collector = BooksCollector()
+        assert collector.get_list_of_favorites_books() == []
+
+
+
+
